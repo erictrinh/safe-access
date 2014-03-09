@@ -12,7 +12,8 @@ describe('access', function() {
       add: function(a, b) {
         return a + b;
       },
-      f: null
+      f: null,
+      e: false
     },
     returnThis: function() {
       return this;
@@ -22,11 +23,19 @@ describe('access', function() {
 
   var b = ['one', function() { return this; }];
 
-  var aDot = access.bind(null, a);
-  var bDot = access.bind(null, b);
+  var aDot = access(a);
+  var bDot = access(b);
+
+  it('should return undefined if the initial object is undefined', function() {
+    expect(access(undefined, 'b.c.d')).to.be.undefined;
+  });
 
   it('should access 1 level down properly', function() {
     expect(aDot('b')).to.equal(a.b);
+  });
+
+  it('should return the right value even if the value is falsey', function() {
+    expect(aDot('b.e')).to.be.false;
   });
 
   it('should return undefined if property doesn\'t exist', function() {

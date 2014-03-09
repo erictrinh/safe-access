@@ -1,10 +1,14 @@
-module.exports = function(obj, accessStr) {
+module.exports = function access(obj, accessStr) {
+  if (isUndefined(accessStr)) {
+    return access.bind(null, obj);
+  }
+
   var funcArgs = Array.prototype.slice.call(arguments, 2);
-  return access(obj, tokenize(accessStr), null, funcArgs);
+  return accessHelper(obj, tokenize(accessStr), null, funcArgs);
 };
 
 // there must be at least one token
-function access(obj, tokens, context, funcArgs) {
+function accessHelper(obj, tokens, context, funcArgs) {
   if (tokens.length === 0) {
     return obj;
   }
@@ -35,7 +39,7 @@ function access(obj, tokens, context, funcArgs) {
     obj = obj[firstToken];
   }
 
-  return access(obj, tokens, context, funcArgs);
+  return accessHelper(obj, tokens, context, funcArgs);
 }
 
 function isUndefined(a) {
