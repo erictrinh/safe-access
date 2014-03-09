@@ -24,6 +24,8 @@ function helper(obj, tokens, ctx, fnArgs) {
 
     return helper(obj[isArray(fnArgs[0]) ? 'apply' : 'call'](ctx, fnArgs[0]),
       tokens.slice(1),
+      // clear context because consecutive fn calls execute in global context
+      // e.g. `a.b()()`
       null,
       fnArgs.slice(1));
 
@@ -31,7 +33,7 @@ function helper(obj, tokens, ctx, fnArgs) {
 
     return helper(obj[parseInt(currentToken.substr(1), 10)],
       tokens.slice(1),
-      // lookahead for function calls
+      // lookahead two tokens for function calls
       isTokenFunctionCall(tokens[1]) ? obj : ctx,
       fnArgs);
 
@@ -39,7 +41,7 @@ function helper(obj, tokens, ctx, fnArgs) {
 
     return helper(obj[currentToken],
       tokens.slice(1),
-      // lookahead for function calls
+      // lookahead two tokens for function calls
       isTokenFunctionCall(tokens[1]) ? obj : ctx,
       fnArgs);
 
