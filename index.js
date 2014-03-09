@@ -9,8 +9,6 @@ module.exports = function access(obj, accessStr) {
 };
 
 function helper(obj, tokens, ctx, fnArgs) {
-  var accessor;
-
   if (tokens.length === 0) {
     return obj;
   }
