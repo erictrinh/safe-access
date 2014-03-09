@@ -20,7 +20,8 @@ function accessHelper(obj, tokens, context, funcArgs) {
 
   var firstToken = tokens.shift();
 
-  if (obj == null || (isTokenFunctionCall(firstToken) && !isFunction(obj))) {
+  if (isUndefined(obj) || isNull(obj) ||
+    (isTokenFunctionCall(firstToken) && !isFunction(obj))) {
     return undefined;
   }
 
@@ -44,6 +45,10 @@ function accessHelper(obj, tokens, context, funcArgs) {
 
 function isUndefined(a) {
   return a === void 0;
+}
+
+function isNull(a) {
+  return a === null;
 }
 
 function isFunction(a) {
