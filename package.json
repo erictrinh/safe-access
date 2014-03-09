@@ -1,0 +1,23 @@
+{
+  "name": "safe-access",
+  "version": "0.0.0",
+  "description": "A utility to allow for safe accessing of nested properties",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "keywords": [
+    "safe",
+    "accessor",
+    "nested"
+  ],
+  "author": "Eric Trinh",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "~1.9.0",
+    "gulp": "~3.5.5",
+    "gulp-mocha": "~0.4.1",
+    "node-notifier": "~1.2.1",
+    "gulp-util": "~2.2.14"
+  }
+}
