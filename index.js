@@ -1,46 +1,51 @@
 module.exports = function access(obj, accessStr) {
+  // auto-curry here
   if (isUndefined(accessStr)) {
     return access.bind(null, obj);
   }
 
   var funcArgs = Array.prototype.slice.call(arguments, 2);
-  return accessHelper(obj, tokenize(accessStr), null, funcArgs);
+  return helper(obj, tokenize(accessStr), null, funcArgs);
 };
 
-// there must be at least one token
-function accessHelper(obj, tokens, context, funcArgs) {
+function helper(obj, tokens, ctx, fnArgs) {
+  var accessor;
+
   if (tokens.length === 0) {
     return obj;
   }
 
-  // lookahead for function call
-  if (isTokenFunctionCall(tokens[1])) {
-    context = obj;
-  }
-
-  var firstToken = tokens.shift();
+  var currentToken = tokens[0];
 
   if (isUndefined(obj) || isNull(obj) ||
-    (isTokenFunctionCall(firstToken) && !isFunction(obj))) {
+    (isTokenFunctionCall(currentToken) && !isFunction(obj))) {
     return undefined;
   }
 
-  if (isTokenFunctionCall(firstToken)) {
-    obj = obj.apply(context, function() {
-      var args = funcArgs.shift();
-      if (!Array.isArray(args)) {
-        args = [args];
-      }
-      return args;
-    }());
-    context = null;
-  } else if (isTokenArrayAccess(firstToken)) {
-    obj = obj[parseInt(firstToken.substr(1), 10)];
-  } else {
-    obj = obj[firstToken];
-  }
+  if (isTokenFunctionCall(currentToken)) {
 
-  return accessHelper(obj, tokens, context, funcArgs);
+    return helper(obj[isArray(fnArgs[0]) ? 'apply' : 'call'](ctx, fnArgs[0]),
+      tokens.slice(1),
+      null,
+      fnArgs.slice(1));
+
+  } else if (isTokenArrayAccess(currentToken)) {
+
+    return helper(obj[parseInt(currentToken.substr(1), 10)],
+      tokens.slice(1),
+      // lookahead for function calls
+      isTokenFunctionCall(tokens[1]) ? obj : ctx,
+      fnArgs);
+
+  } else {
+
+    return helper(obj[currentToken],
+      tokens.slice(1),
+      // lookahead for function calls
+      isTokenFunctionCall(tokens[1]) ? obj : ctx,
+      fnArgs);
+
+  }
 }
 
 function isUndefined(a) {
@@ -49,6 +54,10 @@ function isUndefined(a) {
 
 function isNull(a) {
   return a === null;
+}
+
+function isArray(a) {
+  return Array.isArray(a);
 }
 
 function isFunction(a) {

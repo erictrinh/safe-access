@@ -19,7 +19,7 @@ access(very, 'nested.property.and.array[0].func()');
 
 ## I don't know Coffeescript. Why should I use this?
 
-When accessing deeply nested properties in Javascript, it's important to guard against accessing properties that don't exist in the middle of a chain. For example, `obj.that.is.very.nested` will throw an error if the property `that` doesn't exist. This is bad because it halts your program altogether (unless you have a try/catch in place). In Javascript, one way to guard against this is with long `&&` chains:
+When accessing deeply nested properties in Javascript, it's important to guard against accessing non-existent properties in the middle of a chain. For example, `obj.that.is.very.nested` will throw an error if the property `that` doesn't exist. This is bad because it halts your program altogether (unless you have a try/catch in place). In Javascript, one way to guard against this is with long `&&` chains:
 
 ```javascript
 var nestedThang = obj.that && obj.that.is && obj.that.is.very && obj.that.is.very.nested;
