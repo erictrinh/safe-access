@@ -1,6 +1,6 @@
 # Safe Access
 
-`safe-access` is a Javascript utility to allow for safe accessing of nested properties, inspired by Coffeescript's [existential operator](http://coffeescript.org/#operators).
+`safe-access` is a Javascript utility to allow for safe accessing of nested properties by soaking up nulls, inspired by Coffeescript's [existential operator](http://coffeescript.org/#operators).
 
 ## I know Coffeescript. Why should I use this?
 
@@ -40,7 +40,7 @@ var nestedThang = access(obj, 'that.is.very.nested');
 var obscenelyNested = access(obj, 'leading.to.array[0].andFunc()');
 ```
 
-which is the equivalent of this in Javascript:
+which is the equivalent of this charming thing in Javascript:
 
 ```javascript
 var obscenelyNested = obj &&
@@ -59,7 +59,7 @@ var obscenelyNested = obj &&
 Sometimes, it's necessary to call functions with some arguments. Every argument after the accessor string (3rd argument and beyond) will be used as the arguments to each function call in the accessor string. Like this:
 
 ```javascript
-// equivalent of obj.thing.add(1, 2);
+// equivalent of `obj.thing.add(1, 2);`
 access(obj, 'thing.add()', [1, 2]);
 ```
 
@@ -75,7 +75,7 @@ Notice that if you need to pass in multiple arguments (like in the `add` functio
 An example, passing in an array as an argument:
 
 ```javascript
-access(window._, 'compact()', [[ false, 'boop', 'beep', '', 'meep']]);
+access(window._, 'compact()', [[ false, 'boop', 'beep', '', 'meep' ]]);
 // returns [ 'boop', 'beep', 'meep' ] OR undefined if window._ doesn't exist
 ```
 
@@ -84,6 +84,6 @@ access(window._, 'compact()', [[ false, 'boop', 'beep', '', 'meep']]);
 
 ```javascript
 var objDot = access(obj);
-objDot('nested.thing');
-objDot('other.nested.thing');
+objDot('nested.thing'); // obj.nested.thing
+objDot('other.nested.thing'); // obj.other.nested.thing
 ```

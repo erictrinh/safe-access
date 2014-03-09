@@ -13,10 +13,16 @@ describe('access', function() {
         return a + b;
       },
       f: null,
-      e: false
+      e: false,
+      g: ''
     },
     returnThis: function() {
       return this;
+    },
+    returnReturnThis: function() {
+      return function() {
+        return this;
+      };
     },
     arr: [{key: 'hey'}]
   };
@@ -36,6 +42,10 @@ describe('access', function() {
 
   it('should return the right value even if the value is falsey', function() {
     expect(aDot('b.e')).to.be.false;
+  });
+
+  it('should access past the falsey value', function() {
+    expect(aDot('b.g.concat()', 'boop!')).to.equal('boop!');
   });
 
   it('should return undefined if property doesn\'t exist', function() {
@@ -77,6 +87,10 @@ describe('access', function() {
 
   it('should call a shallow function in the context of the primary object', function() {
     expect(aDot('returnThis()')).to.equal(a);
+  });
+
+  it('should call a function-returning function in the global context', function() {
+    expect(aDot('returnReturnThis()()')).to.equal(global);
   });
 
   it('should access arrays', function() {
