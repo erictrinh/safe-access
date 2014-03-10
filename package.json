@@ -4,7 +4,7 @@
   "description": "A utility to allow for safe accessing of nested properties",
   "main": "index.js",
   "scripts": {
-    "test": "gulp test"
+    "test": "mocha --reporter spec"
   },
   "keywords": [
     "safe",
@@ -14,10 +14,15 @@
   "author": "Eric Trinh",
   "license": "MIT",
   "devDependencies": {
-    "chai": "~1.9.0",
-    "gulp": "~3.5.5",
-    "gulp-mocha": "~0.4.1",
-    "node-notifier": "~1.2.1",
-    "gulp-util": "~2.2.14"
-  }
+    "mocha": "^1.17.1",
+    "chai": "^1.9.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/erictrinh/safe-access.git"
+  },
+  "bugs": {
+    "url": "https://github.com/erictrinh/safe-access/issues"
+  },
+  "homepage": "https://github.com/erictrinh/safe-access"
 }
