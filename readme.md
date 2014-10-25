@@ -87,3 +87,7 @@ var objDot = access(obj);
 objDot('nested.thing'); // obj.nested.thing
 objDot('other.nested.thing'); // obj.other.nested.thing
 ```
+
+## License
+
+`safe-access` is freely distributable under the terms of the [MIT license](LICENSE).
