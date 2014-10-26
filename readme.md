@@ -29,9 +29,40 @@ var nestedThang = obj.that && obj.that.is && obj.that.is.very && obj.that.is.ver
 
 The equivalent, using `safe-access`:
 
+### Node.js
+
+```
+npm install safe-access
+```
+
 ```javascript
 var access = require('safe-access');
 var nestedThang = access(obj, 'that.is.very.nested');
+```
+
+### Require.js
+
+```javascript
+require.config({
+    paths: {
+        "safe-access": "path/to/safe-access",
+    }
+});
+```
+
+```javascript
+define(["safe-access"], function (access) {
+    var nestedThang = access(obj, 'that.is.very.nested');
+});
+```
+
+### Browser
+
+```html
+<script src="safe-access.js"></script>
+<script>
+    var nestedThang = safeAccess(obj, 'that.is.very.nested');
+</script>
 ```
 
 `safe-access` can even be used to safely access arrays and call functions:
