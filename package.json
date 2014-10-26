@@ -2,7 +2,7 @@
   "name": "safe-access",
   "version": "0.1.0",
   "description": "A utility to allow for safe accessing of nested properties",
-  "main": "index.js",
+  "main": "safe-access.js",
   "scripts": {
     "test": "mocha --reporter spec"
   },
