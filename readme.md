@@ -2,6 +2,54 @@
 
 `safe-access` is a Javascript utility to allow for safe accessing of nested properties by soaking up nulls, inspired by Coffeescript's [existential operator](http://coffeescript.org/#operators).
 
+## Install
+
+### Node
+
+```
+npm install safe-access
+```
+
+### Bower
+
+```
+bower install safe-access
+```
+
+## Usage
+
+### Node
+
+```javascript
+var access = require('safe-access');
+var nestedThang = access(obj, 'that.is.very.nested');
+```
+
+### Require.js
+
+```javascript
+require.config({
+  paths: {
+    "safe-access": "path/to/safe-access",
+  }
+});
+```
+
+```javascript
+define(["safe-access"], function (access) {
+  var nestedThang = access(obj, 'that.is.very.nested');
+});
+```
+
+### Browser
+
+```html
+<script src="safe-access.js"></script>
+<script>
+  var nestedThang = safeAccess(obj, 'that.is.very.nested');
+</script>
+```
+
 ## I know Coffeescript. Why should I use this?
 
 Are you writing Javascript and miss doing this in Coffeescript?
@@ -27,42 +75,11 @@ var nestedThang = obj.that && obj.that.is && obj.that.is.very && obj.that.is.ver
 
 `nestedThang` will simply be `undefined` if `that` doesn't exist (instead of throwing an error). But, this gets quite messy (and annoying to type out).
 
-The equivalent, using `safe-access`:
-
-### Node.js
-
-```
-npm install safe-access
-```
+The equivalent, using `safe-access` (in Node):
 
 ```javascript
 var access = require('safe-access');
 var nestedThang = access(obj, 'that.is.very.nested');
-```
-
-### Require.js
-
-```javascript
-require.config({
-    paths: {
-        "safe-access": "path/to/safe-access",
-    }
-});
-```
-
-```javascript
-define(["safe-access"], function (access) {
-    var nestedThang = access(obj, 'that.is.very.nested');
-});
-```
-
-### Browser
-
-```html
-<script src="safe-access.js"></script>
-<script>
-    var nestedThang = safeAccess(obj, 'that.is.very.nested');
-</script>
 ```
 
 `safe-access` can even be used to safely access arrays and call functions:
