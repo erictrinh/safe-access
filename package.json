@@ -1,6 +1,6 @@
 {
   "name": "safe-access",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A utility to allow for safe accessing of nested properties",
   "main": "safe-access.js",
   "scripts": {
