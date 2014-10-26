@@ -1,5 +1,5 @@
 var expect = require('chai').expect;
-var access = require('./index.js');
+var access = require('../safe-access');
 
 describe('safe-access', function() {
   var a = {
